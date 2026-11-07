@@ -13,7 +13,7 @@ jobs:
         env:
           POSTGRES_USER: user
           POSTGRES_PASSWORD: password
-          POSTGRES_DB: myappdb
+          POSTGRES_DB: mytestdb
         ports:
           - 5432:5432
         options: >-
@@ -35,12 +35,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
+        env:
+          DATABASE_URL: postgresql://user:password@localhost:5432/mytestdb
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
           playwright install
       - name: Run tests
+        env:
+          DATABASE_URL: postgresql://user:password@localhost:5432/mytestdb  
         run: |
           source venv/bin/activate
           pytest tests/unit/ --cov=src --junitxml=test-results/junit.xml
@@ -82,8 +86,8 @@ jobs:
         with:
           push: true
           tags: |
-            jstrong8026/601_module9:latest
-            jstrong8026/601_module9:${{ github.sha }}
+            jstrong8026/601_module10:latest
+            jstrong8026/601_module10:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=jstrong8026/601_module9:cache
+          cache-from: type=registry,ref=jstrong8026/601_module10:cache
           cache-to: type=inline,mode=max

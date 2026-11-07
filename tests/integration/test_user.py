@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from app.models.user import User
 from tests.conftest import create_fake_user, managed_db_session
 
-logger = logging.getlogger(__name__)
+logger = logging.getLogger(__name__)
 
 def test_database_connection(db_session):
     result = db_session.execute(text("SELECT 1"))

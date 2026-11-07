@@ -23,13 +23,13 @@ class PasswordMixin(BaseModel):
         if not password:
             raise ValidationError("Password is required", model=cls) # pragma: no cover
         if len(password) < 6:
-            raise ValueError("Password must be at least 6 characters long")
+            raise ValueError("Password must be at least 6 characters long, fool!")
         if not any(char.isupper() for char in password):
-            raise ValueError("Password must contain at least one uppercase letter")
+            raise ValueError("Password must contain at least one uppercase letter, fool!")
         if not any(char.islower() for char in password):
-            raise ValueError("Password must contain at least one lowercase letter")
+            raise ValueError("Password must contain at least one lowercase letter, fool!")
         if not any(char.isdigit() for char in password):
-            raise ValueError("Password must contain at least one digit")
+            raise ValueError("Password must contain at least one digit, fool!")
         return values
 
 

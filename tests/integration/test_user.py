@@ -216,7 +216,7 @@ def test_user_persistence_after_constraint(db_session):
             first_name="Second",
             last_name="User",
             email="first@example.com",
-            username="seconduser"
+            username="seconduser",
             password="password456"
         )
         db_session.add(duplicate_user)

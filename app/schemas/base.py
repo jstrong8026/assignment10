@@ -5,16 +5,16 @@ from datetime import datetime
 
 
 class UserBase(BaseModel):
-    first_name: str = Field(max_length=50, example="King")
-    last_name: str = Field(max_length=50, example="Diamond")
-    email: EmailStr = Field(example="King.Diamond@example.com")
-    username: str = Field(min_length=3, max_length=50, example="kingdiamond")
+    first_name: str = Field(max_length=50, examples=["King"])
+    last_name: str = Field(max_length=50, examples=["Diamond"])
+    email: EmailStr = Field(examples=["King.Diamond@example.com"])
+    username: str = Field(min_length=3, max_length=50, examples=["kingdiamond"])
 
     model_config = ConfigDict(from_attributes=True)
 
 
 class PasswordMixin(BaseModel):
-    password: str = Field(min_length=6, max_length=128, example="SecurePass123")
+    password: str = Field(min_length=6, max_length=128, examples=["SecurePass123"])
 
     @model_validator(mode="before")
     @classmethod
@@ -43,5 +43,5 @@ class UserLogin(PasswordMixin):
         description="Username or email",
         min_length=3,
         max_length=50,
-        example="johndoe123"
+        examples=["johndoe123"]
     )

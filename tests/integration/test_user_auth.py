@@ -51,16 +51,16 @@ def test_duplicate_user_registration(db_session):
         "password": "TestPass123"
     }
 
-    first_user = User.reigster(db_session, user1_data)
+    first_user = User.register(db_session, user1_data)
     db_session.commit()
     db_session.refresh(first_user)
 
-    with pytest.raises(ValueError, match="Username or email aready exists"):
+    with pytest.raises(ValueError, match="User with this email or username already exists"):
         User.register(db_session, user2_data)
 
 def test_user_authentication(db_session, fake_user_data):
     fake_user_data['password'] = "TestPass123"
-    user = User.regster(db_session, fake_user_data)
+    user = User.register(db_session, fake_user_data)
     db_session.commit()
 
     auth_result = User.authenticate(
@@ -105,7 +105,7 @@ def test_unique_email_username(db_session):
         "password": "TestPass123"
     }
 
-    with pytest.raises(ValueError, match="Username or email aready exists"):
+    with pytest.raises(ValueError, match="User with this email or username already exists"):
         User.register(db_session, user2_data)
 
 
@@ -118,7 +118,7 @@ def test_short_password_registration(db_session):
         "password": "shor1"
     }
 
-    with pytest.raises(ValueError, match="Password must be at least 6 characters long"):
+    with pytest.raises(ValueError, match="Password must be at least 6 characters long, fool!"):
         User.register(db_session, test_data)
 
 
@@ -166,6 +166,6 @@ def test_missing_password_registration(db_session):
         "username": "nopassworduser",
     }
 
-    with pytest.raises(ValueError, match="Password must be at least 6 characters long - cannot be blank"):
+    with pytest.raises(ValueError, match="Password must be at least 6 characters long, fool!"):
         User.register(db_session, test_data)
         
